@@ -1,0 +1,42 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by syntax-specific settings.
+{
+	"color_scheme": "Packages/ayu/ayu-mirage.sublime-color-scheme",
+	"font_size": 15,
+	"theme": "ayu-mirage.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"ignored_packages": [
+	],
+	"folder_exclude_patterns": [
+		".cache",
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		".Trash",
+		".Trash-*",
+		"node_modules",
+		"_site"
+	],
+	"show_line_endings": true,
+	"font_face": "PragmataPro Mono Liga",
+	"tab_size": 2,
+	"binary_file_patterns": [
+		"*.jpg",
+		"*.jpeg",
+		"*.png",
+		"*.gif",
+		"*.ttf",
+		"*.tga",
+		"*.dds",
+		"*.ico",
+		"*.eot",
+		"*.pdf",
+		"*.swf",
+		"*.jar",
+		"*.zip",
+		"dist/",
+		"public/"
+	],
+	"auto_complete_commit_on_tab": true,
+}
