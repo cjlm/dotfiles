@@ -36,7 +36,9 @@
 		"*.jar",
 		"*.zip",
 		"dist/",
-		"public/"
+		"public/",
+		"yarn.lock"
 	],
 	"auto_complete_commit_on_tab": true,
+	"show_panel_on_build": false,
 }
