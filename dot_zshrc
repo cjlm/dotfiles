@@ -104,7 +104,7 @@ alias cat="bat"
 
 if ! [ -x "$(command -v bat)" ]; then
   unalias cat
-  alias cat = "batcat"
+  alias cat="batcat"
 fi
 
 alias ls="exa --long"
