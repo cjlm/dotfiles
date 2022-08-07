@@ -111,7 +111,6 @@ alias ls="exa --long"
 alias vim="nvim"
 alias s="kitty +kitten ssh"
 
-eval "$(fnm env --use-on-cd)"
 
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
@@ -133,3 +132,4 @@ function t() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH=/home/cjlm/.fnm:$PATH
 eval "`fnm env`"
+eval "$(fnm env --use-on-cd)"
