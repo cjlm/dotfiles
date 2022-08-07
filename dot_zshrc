@@ -103,6 +103,7 @@ source $ZSH/oh-my-zsh.sh
 alias cat="bat"
 
 if ! [ -x "$(command -v bat)" ]; then
+  unalias cat
   alias cat = "batcat"
 fi
 
