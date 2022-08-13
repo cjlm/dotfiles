@@ -40,3 +40,4 @@ set shortmess=at
 autocmd BufRead,BufNewFile *.json,*.html,*.css,*.svg set sw=2 tabstop=2
 autocmd BufRead,BufNewFile Makefile,makefile,*Makefile,*makefile set noexpandtab
 
+:map Y y$

@@ -133,3 +133,10 @@ function t() {
 export PATH=/home/cjlm/.fnm:$PATH
 eval "`fnm env`"
 eval "$(fnm env --use-on-cd)"
+
+fpath+=($HOME/.zsh/pure)
+
+autoload -U promptinit; promptinit
+prompt pure
+
+export EDITOR=nvim
