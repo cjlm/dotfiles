@@ -1,0 +1,12 @@
+{
+  "autoUpdates": true,
+  "preferredNotifChannel": "terminal_bell",
+  "theme": "dark",
+  "verbose": true,
+  "cleanupPeriodDays": 90,
+  "includeCoAuthoredBy": false,
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "preWrite": "prettier --write"
+  }
+}
