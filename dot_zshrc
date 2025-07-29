@@ -140,3 +140,6 @@ autoload -U promptinit; promptinit
 prompt pure
 
 export EDITOR=nvim
+
+# Disable Homebrew auto cleanup
+export HOMEBREW_NO_INSTALL_CLEANUP=1
