@@ -1,36 +1,30 @@
-#!/bin/zsh
+#!/bin/bash
 
-# Center current window as floating with specific dimensions
+# Toggle between centered (with padding) and normal view
+# For single windows on wide monitors
 
-# Configuration
-WIDTH_PERCENT=60  # Window width as percentage of screen
-HEIGHT_PERCENT=90 # Window height as percentage of screen
+# Check if we currently have padding by looking at outer.left value
+CURRENT_PADDING=$(grep "^outer\.left = " ~/.aerospace.toml | sed 's/outer\.left = //')
 
-# Make window floating
-aerospace layout floating
+if [[ "$CURRENT_PADDING" == "10" ]]; then
+    # Currently normal, add padding to center
+    PADDING=300  # Adjust this value to control centering
+    
+    # Update all outer gaps
+    sed -i '' "s/^outer\.left = .*/outer.left = $PADDING/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.right = .*/outer.right = $PADDING/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.top = .*/outer.top = 100/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.bottom = .*/outer.bottom = 100/" ~/.aerospace.toml
+    
+    # Ensure window is tiled so padding takes effect
+    aerospace layout tiling
+else
+    # Currently padded, restore normal
+    sed -i '' "s/^outer\.left = .*/outer.left = 10/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.right = .*/outer.right = 10/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.top = .*/outer.top = 10/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.bottom = .*/outer.bottom = 10/" ~/.aerospace.toml
+fi
 
-# Get screen dimensions (requires displayplacer or system_profiler)
-# Using system_profiler method:
-SCREEN_INFO=$(system_profiler SPDisplaysDataType | grep Resolution)
-SCREEN_WIDTH=$(echo $SCREEN_INFO | grep -o '[0-9]\+ x' | head -1 | grep -o '[0-9]\+')
-SCREEN_HEIGHT=$(echo $SCREEN_INFO | grep -o 'x [0-9]\+' | head -1 | grep -o '[0-9]\+')
-
-# Calculate window dimensions
-WINDOW_WIDTH=$((SCREEN_WIDTH * WIDTH_PERCENT / 100))
-WINDOW_HEIGHT=$((SCREEN_HEIGHT * HEIGHT_PERCENT / 100))
-
-# Calculate position to center window
-POS_X=$(((SCREEN_WIDTH - WINDOW_WIDTH) / 2))
-POS_Y=$(((SCREEN_HEIGHT - WINDOW_HEIGHT) / 2))
-
-# Use AppleScript to resize and position window
-osascript -e "
-tell application \"System Events\"
-    set frontApp to name of first application process whose frontmost is true
-    tell process frontApp
-        tell window 1
-            set position to {$POS_X, $POS_Y}
-            set size to {$WINDOW_WIDTH, $WINDOW_HEIGHT}
-        end tell
-    end tell
-end tell"
+# Reload config to apply changes
+aerospace reload-config
