@@ -35,6 +35,28 @@ hs.hotkey.bind(hyper, "0", function()
     hs.reload()
 end)
 
+-- Reload AeroSpace config
+hs.hotkey.bind(hyper, "r", function()
+    hs.task.new("/opt/homebrew/bin/aerospace", function(exitCode, stdOut, stdErr)
+        if exitCode == 0 then
+            hs.alert.show("AeroSpace reloaded", 1.0)
+        else
+            hs.alert.show("AeroSpace reload failed", 2.0)
+        end
+    end, {"reload-config"}):start()
+end)
+
+-- Toggle AeroSpace on/off
+hs.hotkey.bind(hyper, "z", function()
+    hs.task.new("/opt/homebrew/bin/aerospace", function(exitCode, stdOut, stdErr)
+        if exitCode == 0 then
+            hs.alert.show("AeroSpace toggled", 1.0)
+        else
+            hs.alert.show("AeroSpace toggle failed", 2.0)
+        end
+    end, {"enable", "toggle"}):start()
+end)
+
 hs.alert.show("Hammerspoon config loaded")
 
 local applicationHotkeys = {
@@ -333,3 +355,28 @@ obj:bindHotkeys({
   fullscreen = {hyper, "return"},
   nextscreen = {hyper, "n"}
 })
+
+-- AeroSpace Workspace Indicator (simple notification)
+local workspaceIndicator = {}
+workspaceIndicator.currentWorkspace = nil
+workspaceIndicator.checkTimer = nil
+
+function workspaceIndicator.checkWorkspace()
+    local task = hs.task.new("/opt/homebrew/bin/aerospace", function(exitCode, stdOut, stdErr)
+        if exitCode == 0 then
+            local newWorkspace = stdOut:match("^%s*(.-)%s*$") -- trim whitespace
+            if newWorkspace and newWorkspace ~= workspaceIndicator.currentWorkspace then
+                workspaceIndicator.currentWorkspace = newWorkspace
+                hs.alert.show(newWorkspace, 1.0)
+            end
+        end
+    end, {"list-workspaces", "--focused"})
+    task:start()
+end
+
+-- Start monitoring with a more resilient approach
+workspaceIndicator.timer = hs.timer.new(0.3, workspaceIndicator.checkWorkspace)
+workspaceIndicator.timer:start()
+
+-- Initialize current workspace
+workspaceIndicator.checkWorkspace()

@@ -70,9 +70,6 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
-alt-a = 'workspace A'
-alt-b = 'workspace B'
-alt-c = 'workspace C'
 
 # Workspace movement
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -84,58 +81,67 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-a = 'move-node-to-workspace A'
-alt-shift-b = 'move-node-to-workspace B'
-alt-shift-c = 'move-node-to-workspace C'
 
 # Navigation shortcuts
 alt-tab = 'workspace-back-and-forth'
 alt-backtick = 'workspace-back-and-forth'
 
-# Additional bindings for workspace switching
+# Additional bindings for workspace switching (hyper key)
 ctrl-alt-shift-cmd-1 = 'workspace 1'
 ctrl-alt-shift-cmd-2 = 'workspace 2'
 ctrl-alt-shift-cmd-3 = 'workspace 3'
 ctrl-alt-shift-cmd-4 = 'workspace 4'
 ctrl-alt-shift-cmd-5 = 'workspace 5'
 ctrl-alt-shift-cmd-6 = 'workspace 6'
+ctrl-alt-shift-cmd-7 = 'workspace 7'
+ctrl-alt-shift-cmd-8 = 'workspace 8'
+ctrl-alt-shift-cmd-9 = 'workspace 9'
+ctrl-alt-shift-cmd-a = 'workspace A'
+ctrl-alt-shift-cmd-b = 'workspace B'
+ctrl-alt-shift-cmd-c = 'workspace C'
 
 # Service mode
 alt-shift-semicolon = 'mode service'
-
-# Gap toggle
-alt-g = 'exec-and-forget ~/.config/aerospace/toggle-gaps.sh'
 
 # Center window as floating
 alt-shift-f = 'exec-and-forget ~/.config/aerospace/center-window.sh'
 
 # Window rules
+# Workspace 1: Browsing - Firefox and Claude
 [[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
+if.app-id = 'org.mozilla.firefox'
 run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
-if.app-id = 'com.atlassian.trello'
+if.app-id = 'com.anthropic.claude'
+run = ['move-node-to-workspace 1']
+
+# Workspace 2: Work - Zed, Sublime Merge
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = ['move-node-to-workspace 3']
+if.app-id = 'com.sublimemerge'
+run = ['move-node-to-workspace 2']
 
+# Workspace 3: Adhoc - Sublime Text
 [[on-window-detected]]
 if.app-id = 'com.sublimetext.4'
 run = ['move-node-to-workspace 3']
 
+# Workspace 4: Writing - Obsidian
 [[on-window-detected]]
-if.app-id = 'com.apple.Music'
-run = ['move-node-to-workspace 5']
+if.app-id = 'md.obsidian'
+run = ['move-node-to-workspace 4']
 
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
-run = ['move-node-to-workspace 5']
-
+# Workspace 5: Personal - iMessage, Music
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
 run = ['move-node-to-workspace 5']
 
 # Floating windows
