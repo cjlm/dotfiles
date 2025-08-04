@@ -100,14 +100,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias cat="bat"
+alias cat="bat --style=plain --paging=never --theme=base16"
 
 if ! [ -x "$(command -v bat)" ]; then
   unalias cat
   alias cat="batcat"
 fi
 
-alias ls="exa --long"
+alias ls="eza --long"
 alias vim="nvim"
 alias s="kitty +kitten ssh"
 
@@ -137,9 +137,13 @@ eval "$(fnm env --use-on-cd)"
 fpath+=($HOME/.zsh/pure)
 
 autoload -U promptinit; promptinit
-prompt pure
+# prompt pure
+
+# Use Starship prompt
+eval "$(starship init zsh)"
 
 export EDITOR=nvim
 
 # Disable Homebrew auto cleanup
 export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_AUTO_UPDATE=1

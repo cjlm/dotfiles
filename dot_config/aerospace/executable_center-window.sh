@@ -8,13 +8,13 @@ CURRENT_PADDING=$(grep "^outer\.left = " ~/.aerospace.toml | sed 's/outer\.left 
 
 if [[ "$CURRENT_PADDING" == "10" ]]; then
     # Currently normal, add padding to center
-    PADDING=300  # Adjust this value to control centering
+    PADDING=900 # Adjust this value to control centering
     
     # Update all outer gaps
     sed -i '' "s/^outer\.left = .*/outer.left = $PADDING/" ~/.aerospace.toml
     sed -i '' "s/^outer\.right = .*/outer.right = $PADDING/" ~/.aerospace.toml
-    sed -i '' "s/^outer\.top = .*/outer.top = 100/" ~/.aerospace.toml
-    sed -i '' "s/^outer\.bottom = .*/outer.bottom = 100/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.top = .*/outer.top = 50/" ~/.aerospace.toml
+    sed -i '' "s/^outer\.bottom = .*/outer.bottom = 50/" ~/.aerospace.toml
     
     # Ensure window is tiled so padding takes effect
     aerospace layout tiling
