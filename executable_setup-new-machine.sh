@@ -57,7 +57,8 @@ brew install --cask \
   slack \
   espanso \
   jordanbaird-ice \
-  helium
+  helium \
+  dato
 
 # Install borders for AeroSpace
 brew tap FelixKratz/formulae
