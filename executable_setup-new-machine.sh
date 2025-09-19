@@ -99,6 +99,9 @@ defaults write com.apple.trackpad.scroll SwipeBetweenPages -bool false
 # Accessibility: enable scroll gesture with modifier keys to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 
+# Keyboard: disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
 echo "macOS settings configured. Some changes may require a logout/restart."
 
 # Configure OpenAI API key for llm
