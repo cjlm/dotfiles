@@ -20,13 +20,44 @@ brew install \
   chezmoi \
   ffmpeg \
   yt-dlp \
-  llm
+  llm \
+  gh \
+  pnpm \
+  tmux \
+  wget \
+  docker \
+  docker-compose \
+  colima \
+  tailscale \
+  marp-cli \
+  repomix \
+  watch \
+  tesseract \
+  uv \
+  rust \
+  python@3.13 \
+  node \
+  zsh-autosuggestions \
+  zsh-syntax-highlighting
 
 # Install casks
 brew install --cask \
   kitty \
   nikitabobko/tap/aerospace \
-  hammerspoon
+  hammerspoon \
+  karabiner-elements \
+  bitwarden \
+  obsidian \
+  sublime-text \
+  sublime-merge \
+  zed \
+  google-chrome \
+  firefox \
+  librewolf \
+  slack \
+  espanso \
+  jordanbaird-ice \
+  helium
 
 # Install borders for AeroSpace
 brew tap FelixKratz/formulae
@@ -38,9 +69,7 @@ brew install simonw/llm/ttok
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Install zsh plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# Note: zsh-autosuggestions and zsh-syntax-highlighting are now installed via Homebrew above
 
 # Install uv (still needed by the yt-summarize script)
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -49,8 +78,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 $(brew --prefix)/opt/fzf/install
 
 # Initialize chezmoi with your dotfiles
-# Replace with your actual repo
-# chezmoi init --apply https://github.com/yourusername/dotfiles.git
+chezmoi init --apply https://github.com/cjlm/dotfiles.git
 
 # Configure OpenAI API key for llm
 echo "Remember to set your OpenAI API key:"
