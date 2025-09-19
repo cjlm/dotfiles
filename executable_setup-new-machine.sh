@@ -57,11 +57,14 @@ brew install --cask \
   slack \
   espanso \
   jordanbaird-ice \
-  helium
+  helium \
+  claude \
+  claude-code
 
 # Install borders for AeroSpace
 brew tap FelixKratz/formulae
 brew install borders
+brew services start felixkratz/formulae/borders
 
 # Install ttok from custom tap
 brew install simonw/llm/ttok
@@ -71,17 +74,25 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # Note: zsh-autosuggestions and zsh-syntax-highlighting are now installed via Homebrew above
 
-# Install uv (still needed by the yt-summarize script)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
 # Setup fzf
 $(brew --prefix)/opt/fzf/install
 
 # Initialize chezmoi with your dotfiles
 chezmoi init --apply https://github.com/cjlm/dotfiles.git
 
+# Configure chezmoi data
+echo ""
+echo "Remember to configure chezmoi with your personal data:"
+echo "  Create/edit ~/.config/chezmoi/chezmoi.toml with:"
+echo "  [data]"
+echo "      name = \"Your Name\""
+echo "      email = \"your.email@example.com\""
+
 # macOS System Preferences
 echo "Configuring macOS settings..."
+
+# Finder: show hidden files
+defaults write com.apple.finder AppleShowAllFiles TRUE
 
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -97,10 +108,19 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write com.apple.trackpad.scroll SwipeBetweenPages -bool false
 
 # Accessibility: enable scroll gesture with modifier keys to zoom
+# Note: This requires enabling zoom in System Settings > Accessibility > Zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 # Keyboard: disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Keyboard: set fast key repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 2
+
+# Dock: clear all persistent apps from the dock
+defaults write com.apple.dock persistent-apps -array; killall Dock
 
 echo "macOS settings configured. Some changes may require a logout/restart."
 
