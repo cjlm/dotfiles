@@ -80,6 +80,21 @@ $(brew --prefix)/opt/fzf/install
 # Initialize chezmoi with your dotfiles
 chezmoi init --apply https://github.com/cjlm/dotfiles.git
 
+# macOS System Preferences
+echo "Configuring macOS settings..."
+
+# Trackpad: enable tap to click for this user and for the login screen
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Trackpad: enable right-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+
+echo "macOS settings configured. Some changes may require a logout/restart."
+
 # Configure OpenAI API key for llm
 echo "Remember to set your OpenAI API key:"
 echo "llm keys set openai"
