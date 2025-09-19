@@ -96,6 +96,9 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 # Trackpad: disable swipe between pages
 defaults write com.apple.trackpad.scroll SwipeBetweenPages -bool false
 
+# Accessibility: enable scroll gesture with modifier keys to zoom
+defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+
 echo "macOS settings configured. Some changes may require a logout/restart."
 
 # Configure OpenAI API key for llm
