@@ -93,6 +93,9 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCorner
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
+# Trackpad: disable swipe between pages
+defaults write com.apple.trackpad.scroll SwipeBetweenPages -bool false
+
 echo "macOS settings configured. Some changes may require a logout/restart."
 
 # Configure OpenAI API key for llm
