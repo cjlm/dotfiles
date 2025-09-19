@@ -57,8 +57,7 @@ brew install --cask \
   slack \
   espanso \
   jordanbaird-ice \
-  helium \
-  dato
+  helium
 
 # Install borders for AeroSpace
 brew tap FelixKratz/formulae
@@ -84,3 +83,8 @@ chezmoi init --apply https://github.com/cjlm/dotfiles.git
 # Configure OpenAI API key for llm
 echo "Remember to set your OpenAI API key:"
 echo "llm keys set openai"
+
+# Manual Mac App Store installs
+echo ""
+echo "Remember to install from Mac App Store:"
+echo "  - Dato"
