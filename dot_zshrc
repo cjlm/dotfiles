@@ -147,3 +147,11 @@ export EDITOR=nvim
 # Disable Homebrew auto cleanup
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+# pnpm
+export PNPM_HOME="/Users/cjlm/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
