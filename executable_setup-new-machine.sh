@@ -81,6 +81,14 @@ brew install simonw/llm/ttok
 # Setup fzf (key-bindings + completion, no rc edits — .zshrc sources ~/.fzf.zsh itself)
 $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc
 
+# Bootstrap Sublime Text Package Control. The Package Control.sublime-settings
+# tracked in dotfiles lists "ayu" under installed_packages, so it auto-installs
+# on first Sublime launch.
+SUBLIME_INSTALLED_DIR="$HOME/Library/Application Support/Sublime Text/Installed Packages"
+mkdir -p "$SUBLIME_INSTALLED_DIR"
+curl -fsSL -o "$SUBLIME_INSTALLED_DIR/Package Control.sublime-package" \
+  https://download.sublimetext.com/Package%20Control.sublime-package
+
 # Setup rustup toolchain (don't modify shell profile — dotfiles' .zshrc sources $HOME/.cargo/env)
 rustup-init -y --default-toolchain stable --no-modify-path
 source "$HOME/.cargo/env"
