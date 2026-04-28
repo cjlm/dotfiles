@@ -116,6 +116,9 @@ echo "Configuring macOS settings..."
 defaults write com.apple.finder AppleShowAllFiles TRUE
 killall Finder
 
+# Downloads: stop tagging downloaded files with quarantine (skip "open from internet" prompt)
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
