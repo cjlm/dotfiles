@@ -43,6 +43,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # fnm
 eval "$(fnm env --use-on-cd)"
 
+# Rust (rustup)
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
 # Starship
 eval "$(starship init zsh)"
 

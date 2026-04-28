@@ -34,7 +34,7 @@ brew install \
   watch \
   tesseract \
   uv \
-  rust \
+  rustup \
   python@3.13 \
   node \
   zsh-autosuggestions \
@@ -74,8 +74,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # Note: zsh-autosuggestions and zsh-syntax-highlighting are now installed via Homebrew above
 
-# Setup fzf
+# Setup fzf (interactive — answer y to key bindings + completion)
 $(brew --prefix)/opt/fzf/install
+
+# Setup rustup toolchain (don't modify shell profile — dotfiles' .zshrc sources $HOME/.cargo/env)
+rustup-init -y --default-toolchain stable --no-modify-path
+source "$HOME/.cargo/env"
+rustup component add rust-analyzer rust-src
 
 # Initialize chezmoi with your dotfiles
 chezmoi init --apply https://github.com/cjlm/dotfiles.git
@@ -93,6 +98,7 @@ echo "Configuring macOS settings..."
 
 # Finder: show hidden files
 defaults write com.apple.finder AppleShowAllFiles TRUE
+killall Finder
 
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -108,7 +114,9 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write com.apple.trackpad.scroll SwipeBetweenPages -bool false
 
 # Accessibility: enable scroll gesture with modifier keys to zoom
-# Note: This requires enabling zoom in System Settings > Accessibility > Zoom
+# Note: writes to com.apple.universalaccess require Full Disk Access for the
+# terminal running this script (System Settings > Privacy & Security > Full Disk
+# Access). If skipped, configure manually in System Settings > Accessibility > Zoom.
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
@@ -116,13 +124,34 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 # Keyboard: disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Keyboard: set fast key repeat rate
+# Keyboard: set fast key repeat rate + short delay before repeat starts
 defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Dock: clear all persistent apps from the dock
 defaults write com.apple.dock persistent-apps -array; killall Dock
 
+# Menu bar: hide Siri icon
+defaults write com.apple.Siri StatusMenuVisible -bool false
+killall SystemUIServer
+
 echo "macOS settings configured. Some changes may require a logout/restart."
+
+# App permissions (must be granted manually in System Settings > Privacy & Security):
+#   - Karabiner-Elements: Input Monitoring + Driver Extension
+#   - AeroSpace:          Accessibility
+#   - Hammerspoon:        Accessibility
+#   - Espanso:            Accessibility + Input Monitoring
+echo ""
+echo "Grant required Privacy & Security permissions to:"
+echo "  Karabiner-Elements (Input Monitoring + Driver Extension)"
+echo "  AeroSpace, Hammerspoon (Accessibility)"
+echo "  Espanso (Accessibility + Input Monitoring)"
+
+# Espanso: register as login service (run AFTER granting permissions above)
+echo ""
+echo "After granting Espanso permissions, run:"
+echo "  espanso service register && espanso start"
 
 # Configure OpenAI API key for llm
 echo "Remember to set your OpenAI API key:"
