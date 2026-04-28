@@ -5,38 +5,47 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install tools via Homebrew
+# Install tools via Homebrew (alphabetical)
 brew install \
+  actionlint \
+  ast-grep \
   bat \
-  eza \
-  fzf \
-  the_silver_searcher \
-  tree \
-  neovim \
-  git \
-  diff-so-fancy \
-  fnm \
-  starship \
   chezmoi \
-  ffmpeg \
-  yt-dlp \
-  llm \
-  gh \
-  pnpm \
-  tmux \
-  wget \
+  colima \
+  diff-so-fancy \
   docker \
   docker-compose \
-  colima \
-  tailscale \
+  eza \
+  fd \
+  ffmpeg \
+  fnm \
+  fzf \
+  gh \
+  git \
+  jq \
+  llm \
+  macos-trash \
   marp-cli \
-  repomix \
-  watch \
-  tesseract \
-  uv \
-  rustup \
-  python@3.13 \
+  neovim \
   node \
+  pnpm \
+  python@3.13 \
+  repomix \
+  ripgrep \
+  rustup \
+  shellcheck \
+  shfmt \
+  starship \
+  tailscale \
+  tesseract \
+  tmux \
+  tree \
+  uv \
+  watch \
+  wget \
+  yt-dlp \
+  zizmor \
+  zoxide \
   zsh-autosuggestions \
   zsh-syntax-highlighting
 
@@ -69,18 +78,25 @@ brew services start felixkratz/formulae/borders
 # Install ttok from custom tap
 brew install simonw/llm/ttok
 
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Note: zsh-autosuggestions and zsh-syntax-highlighting are now installed via Homebrew above
-
-# Setup fzf (interactive — answer y to key bindings + completion)
-$(brew --prefix)/opt/fzf/install
+# Setup fzf (key-bindings + completion, no rc edits — .zshrc sources ~/.fzf.zsh itself)
+$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc
 
 # Setup rustup toolchain (don't modify shell profile — dotfiles' .zshrc sources $HOME/.cargo/env)
 rustup-init -y --default-toolchain stable --no-modify-path
 source "$HOME/.cargo/env"
 rustup component add rust-analyzer rust-src
+rustup target add wasm32-unknown-unknown
+
+# Cargo-installed binaries (compiles from source — slow on first run)
+cargo install prek cargo-deny
+
+# Python CLI tools via uv (isolated venvs per tool)
+uv tool install ruff
+uv tool install ty
+uv tool install pip-audit
+
+# Node global CLI tools (note: fnm's per-version globals — re-run after switching Node versions)
+npm install -g oxlint
 
 # Initialize chezmoi with your dotfiles
 chezmoi init --apply https://github.com/cjlm/dotfiles.git

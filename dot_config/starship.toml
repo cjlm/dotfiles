@@ -1,0 +1,2 @@
+# fnm-shimmed node lookups can exceed the 500ms default on cold paths
+command_timeout = 1000

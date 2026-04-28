@@ -38,7 +38,7 @@ If you prefer to do it step by step:
 
 ## What's Included
 
-- Shell: zsh with oh-my-zsh, aliases, functions
+- Shell: zsh with zsh-autosuggestions, zsh-syntax-highlighting, starship prompt, zoxide, fzf
 - Editor: Neovim and Zed configurations
 - Terminal: Kitty configuration
 - Window Management: Aerospace, Karabiner, Hammerspoon
